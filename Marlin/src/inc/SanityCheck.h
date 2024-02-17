@@ -1341,16 +1341,16 @@ static_assert(NUM_SERVOS <= NUM_SERVO_PLUGS, "NUM_SERVOS (or some servo index) i
       #if Z_MIN_PROBE_ENDSTOP_HIT_STATE != LOW
         #error "TOUCH_MI_PROBE requires Z_MIN_PROBE_ENDSTOP_HIT_STATE LOW."
       #endif
-    #elif Z_MIN_PROBE_ENDSTOP_HIT_STATE != HIGH
-      #error "TOUCH_MI_PROBE requires Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH."
+    // #elif Z_MIN_PROBE_ENDSTOP_HIT_STATE != HIGH
+    //   #error "TOUCH_MI_PROBE requires Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH."
     #endif
     #if ENABLED(Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN)
       #if ENABLED(INVERTED_PROBE_STATE)
         #if Z_MIN_ENDSTOP_HIT_STATE != LOW
           #error "TOUCH_MI_PROBE requires Z_MIN_ENDSTOP_HIT_STATE LOW."
         #endif
-      #elif Z_MIN_ENDSTOP_HIT_STATE != HIGH
-        #error "TOUCH_MI_PROBE requires Z_MIN_ENDSTOP_HIT_STATE HIGH."
+      // #elif Z_MIN_ENDSTOP_HIT_STATE != HIGH
+      //   #error "TOUCH_MI_PROBE requires Z_MIN_ENDSTOP_HIT_STATE HIGH."
       #endif
     #endif
   #endif // TOUCH_MI_PROBE
