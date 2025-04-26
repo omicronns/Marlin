@@ -1239,7 +1239,7 @@
 #define X_MAX_ENDSTOP_HIT_STATE HIGH
 #define Y_MIN_ENDSTOP_HIT_STATE HIGH
 #define Y_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_ENDSTOP_HIT_STATE LOW
 #define Z_MAX_ENDSTOP_HIT_STATE HIGH
 #define I_MIN_ENDSTOP_HIT_STATE HIGH
 #define I_MAX_ENDSTOP_HIT_STATE HIGH
@@ -1253,7 +1253,7 @@
 #define V_MAX_ENDSTOP_HIT_STATE HIGH
 #define W_MIN_ENDSTOP_HIT_STATE HIGH
 #define W_MAX_ENDSTOP_HIT_STATE HIGH
-#define Z_MIN_PROBE_ENDSTOP_HIT_STATE HIGH
+#define Z_MIN_PROBE_ENDSTOP_HIT_STATE LOW
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -1494,7 +1494,8 @@
  * Also requires: BABYSTEPPING, BABYSTEP_ZPROBE_OFFSET, Z_SAFE_HOMING,
  *                and a minimum Z_CLEARANCE_FOR_HOMING of 10.
  */
-//#define TOUCH_MI_PROBE
+#define TOUCH_MI_PROBE
+#define INVERTED_PROBE_STATE
 #if ENABLED(TOUCH_MI_PROBE)
   #define TOUCH_MI_RETRACT_Z 0.5                  // Height at which the probe retracts
   //#define TOUCH_MI_DEPLOY_XPOS (X_MAX_BED + 2)  // For a magnet on the right side of the bed
@@ -1647,7 +1648,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 10, 10, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { -46, -9, -10 }
 
 // Enable and set to use a specific tool for probing. Disable to allow any tool.
 #define PROBING_TOOL 0
@@ -1733,7 +1734,7 @@
  *     But: 'M851 Z+1' with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
 #define Z_CLEARANCE_DEPLOY_PROBE   10 // (mm) Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // (mm) Z Clearance between probe points
+#define Z_CLEARANCE_BETWEEN_PROBES  6 // (mm) Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     5 // (mm) Z Clearance between multiple probes
 #define Z_PROBE_ERROR_TOLERANCE     3 // (mm) Tolerance for early trigger (<= -probe.offset.z + ZPET)
 //#define Z_AFTER_PROBING           5 // (mm) Z position after probing is done
@@ -1775,10 +1776,10 @@
 //#define DELAY_BEFORE_PROBING 200  // (ms) To prevent vibrations from triggering piezo sensors
 
 // Require minimum nozzle and/or bed temperature for probing
-//#define PREHEAT_BEFORE_PROBING
+#define PREHEAT_BEFORE_PROBING
 #if ENABLED(PREHEAT_BEFORE_PROBING)
   #define PROBING_NOZZLE_TEMP 120   // (°C) Only applies to E0 at this time
-  #define PROBING_BED_TEMP     50
+  #define PROBING_BED_TEMP     60
 #endif
 
 // @section stepper drivers
@@ -1853,7 +1854,7 @@
  */
 //#define Z_IDLE_HEIGHT Z_HOME_POS
 
-//#define Z_CLEARANCE_FOR_HOMING  4   // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
+#define Z_CLEARANCE_FOR_HOMING  15    // (mm) Minimal Z height before homing (G28) for Z clearance above the bed, clamps, ...
                                       // You'll need this much clearance above Z_MAX_POS to avoid grinding.
 
 //#define Z_AFTER_HOMING         10   // (mm) Height to move to after homing (if Z was homed)
@@ -1891,11 +1892,11 @@
 // @section geometry
 
 // The size of the printable area
-#define X_BED_SIZE 235
+#define X_BED_SIZE 225
 #define Y_BED_SIZE 235
 
 // Travel limits (linear=mm, rotational=°) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
+#define X_MIN_POS -10
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
@@ -2113,7 +2114,7 @@
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR
+#define AUTO_BED_LEVELING_BILINEAR
 //#define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
 
@@ -2135,7 +2136,7 @@
  * leveling immediately after G28.
  */
 //#define RESTORE_LEVELING_AFTER_G28
-//#define ENABLE_LEVELING_AFTER_G28
+#define ENABLE_LEVELING_AFTER_G28
 
 /**
  * Auto-leveling needs preheating
@@ -2196,7 +2197,7 @@
 #if ANY(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 3
+  #define GRID_MAX_POINTS_X 8
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
@@ -2291,7 +2292,7 @@
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
-//#define LCD_BED_TRAMMING
+#define LCD_BED_TRAMMING
 
 #if ENABLED(LCD_BED_TRAMMING)
   #define BED_TRAMMING_INSET_LFRB { 30, 30, 30, 30 } // (mm) Left, Front, Right, Back insets
@@ -2349,7 +2350,7 @@
  * - Allows Z homing only when XY positions are known and trusted.
  * - If stepper drivers sleep, XY homing may be required again before Z homing.
  */
-//#define Z_SAFE_HOMING
+#define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
   #define Z_SAFE_HOMING_X_POINT X_CENTER  // (mm) X point for Z homing
